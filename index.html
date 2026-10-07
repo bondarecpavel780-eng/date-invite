@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>У мене є важливе питання...</title>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ЕКРАН 0: Вступ -->
+    <section id="step-0" class="screen active fade-in">
+      <div class="media-container">
+        <img src="/assets/hello.gif" alt="Hello">
+      </div>
+      <h1>Хочу в тебе дещо запитати... 👉👈</h1>
+      <button id="btn-start" class="btn primary">Далі</button>
+    </section>
+
+    <!-- ЕКРАН 1: Головне питання -->
+    <section id="step-1" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/please.gif" alt="Please">
+      </div>
+      <h1>Ти підеш зі мною на побачення?</h1>
+      <div class="buttons">
+        <button id="btn-yes" class="btn primary pulse">Так!</button>
+        <button id="btn-no" class="btn secondary">Ні</button>
+      </div>
+    </section>
+
+    <!-- ЕКРАН 2: Вибір категорії -->
+    <section id="step-2" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/choose.gif" alt="Choose">
+      </div>
+      <h1>Куди б ти хотіла сходити? ✨</h1>
+      <div class="places-grid">
+        <button class="place-card category-btn" data-category="walk">🌳 Просто прогулятися</button>
+        <button class="place-card category-btn" data-category="movie">🎬 У кіно</button>
+        <button class="place-card category-btn" data-category="food">🍝 Смачно поїсти</button>
+        <button class="place-card category-btn" data-category="home">🛋️ Посидіти вдома разом</button>
+      </div>
+    </section>
+
+    <!-- ЕКРАН 3A: Кіно -->
+    <section id="step-3-movie" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/movie.gif" alt="Movie">
+      </div>
+      <h1>На який фільм? 🍿</h1>
+      <div class="custom-place">
+        <input type="text" id="movie-input" placeholder="Напиши назву...">
+      </div>
+      <button id="btn-next-movie" class="btn primary disabled">Далі</button>
+    </section>
+
+    <!-- ЕКРАН 3B: Їжа -->
+    <section id="step-3-food" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/food.gif" alt="Food">
+      </div>
+      <h1>Що будемо їсти? 🍕</h1>
+      <div class="places-grid">
+        <button class="place-card food-btn" data-food="Мак">🍔 Мак</button>
+        <button class="place-card food-btn" data-food="Суші">🍣 Суші</button>
+        <button class="place-card food-btn" data-food="Піца">🍕 Піца</button>
+        <button class="place-card food-btn" data-food="Кава/Чай">☕ Кохве/Чай</button>
+        <button class="place-card food-btn" data-food="За солодким">🧁 За солодким</button>
+      </div>
+      <div class="custom-place">
+        <input type="text" id="food-input" placeholder="Або твій варіант...">
+      </div>
+      <button id="btn-next-food" class="btn primary disabled">Далі</button>
+    </section>
+
+    <!-- ЕКРАН 3C: Вдома -->
+    <section id="step-3-home" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/home.gif" alt="Home">
+      </div>
+      <h1>У кого зберемося? 🏡</h1>
+      <div class="places-grid">
+        <button class="place-card home-btn" data-home="У мене">У мене)</button>
+        <button class="place-card home-btn" data-home="У тебе">У тебе ✨</button>
+      </div>
+      <button id="btn-next-home" class="btn primary disabled">Далі</button>
+    </section>
+
+    <!-- ЕКРАН 4: Вибір дати та часу -->
+    <section id="step-4" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/time.gif" alt="Time">
+      </div>
+      <h1>Коли і о котрій? ⏰</h1>
+      <div class="date-picker-container">
+        <label>Дата:</label>
+        <input type="date" id="date-input">
+        
+        <label>Час:</label>
+        <input type="time" id="time-input">
+      </div>
+      <button id="btn-finish" class="btn primary disabled">Підтвердити</button>
+    </section>
+
+    <!-- ЕКРАН 5: Фінал -->
+    <section id="step-5" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/happy.gif" alt="Happy">
+      </div>
+      <h1>Ура! Домовились ❤️</h1>
+    </section>
+
+  </div>
+
+  <script type="module" src="/src/js/index.js"></script>
+</body>
+</html>

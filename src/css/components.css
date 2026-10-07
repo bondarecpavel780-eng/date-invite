@@ -1,0 +1,103 @@
+/* Контейнер кнопок (відстань між ними) */
+.buttons {
+  display: flex;
+  gap: 60px; /* Дуже велика відстань між кнопками */
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  min-height: 100px; /* Щоб контейнер не стрибав при збільшенні кнопки */
+  width: 100%;
+}
+
+/* Базові стилі для кнопок */
+.btn {
+  padding: 16px 36px;
+  font-size: 1.5rem;
+  font-weight: 900;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn.primary {
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: 0 10px 25px rgba(255, 117, 140, 0.5);
+}
+
+.btn.primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(255, 117, 140, 0.7);
+}
+
+.btn.secondary {
+  background: white;
+  color: #ff758c;
+  border: 3px solid #ff758c;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.btn.secondary:hover {
+  background: #fff0f3;
+  transform: translateY(-3px);
+}
+
+/* Стан неактивної кнопки */
+.btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Картки вибору місця */
+.places-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.place-card {
+  padding: 18px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: white;
+  border: 3px solid #ffe3e9;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: var(--text-color);
+  font-family: 'Nunito', sans-serif;
+}
+
+.place-card:hover, .place-card.selected {
+  border-color: var(--primary-color);
+  background-color: #fff0f3;
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 10px 20px rgba(255, 117, 140, 0.2);
+}
+
+/* Інпути */
+input[type="text"], input[type="date"], input[type="time"] {
+  width: 100%;
+  padding: 16px;
+  border: 3px solid #ffe3e9;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  color: var(--text-color);
+  margin-bottom: 25px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus {
+  border-color: var(--primary-color);
+}

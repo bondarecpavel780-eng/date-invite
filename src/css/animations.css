@@ -1,0 +1,55 @@
+/* Анімація появи нового екрану */
+@keyframes popIn {
+  0% { transform: scale(0.85) translateY(30px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Анімація зникнення старого екрану */
+@keyframes fadeOutAnim {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.95) translateY(-20px); opacity: 0; }
+}
+
+.screen.active {
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.screen.fade-out {
+  animation: fadeOutAnim 0.3s ease forwards;
+  pointer-events: none; /* Щоб не можна було клікати під час зникнення */
+}
+
+/* Плавання гіфок */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
+}
+
+.media-container img {
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); /* Тінь для гіфки */
+}
+
+/* Анімація для величезної кнопки Так */
+@keyframes superPulse {
+  0% { transform: scale(1.8); }
+  50% { transform: scale(1.95); }
+  100% { transform: scale(1.8); }
+}
+
+.btn-yes-huge {
+  transform: scale(1.8) !important;
+  animation: superPulse 1s infinite ease-in-out;
+  pointer-events: auto !important; /* Щоб по ній точно можна було клікнути */
+}
+
+/* Клас для втікаючої кнопки "Ні" */
+.runaway {
+  position: fixed !important;
+  z-index: 1000;
+  margin: 0 !important; /* Забороняємо відступам виштовхувати кнопку за екран */
+  transition: left 0.3s ease, top 0.3s ease; /* Плавне переміщення */
+}
