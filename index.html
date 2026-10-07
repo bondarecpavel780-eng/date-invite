@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>У мене є важливе питання...</title>
 </head>
+
 <body>
   <div class="app-container">
-    
+
     <!-- ЕКРАН 0: Вступ -->
     <section id="step-0" class="screen active fade-in">
       <div class="media-container">
@@ -40,8 +42,18 @@
         <button class="place-card category-btn" data-category="movie">🎬 У кіно</button>
         <button class="place-card category-btn" data-category="food">🍝 Смачно поїсти</button>
         <button class="place-card category-btn" data-category="home">🛋️ Посидіти вдома разом</button>
+        <button class="place-card category-btn" data-category="custom">✍️ Твій варіант</button>
       </div>
     </section>
+
+    <div id="walk-modal" class="modal hidden" aria-hidden="true">
+      <div class="modal-panel">
+        <h3>Які побажання у моєї принцеси?)</h3>
+        <input type="text" id="walk-input" placeholder="Нажмякай сюди">
+        <button id="btn-continue-walk" class="btn primary">Далі</button>
+        <button id="btn-skip-walk" class="btn secondary modal-skip">Пропустити</button>
+      </div>
+    </div>
 
     <!-- ЕКРАН 3A: Кіно -->
     <section id="step-3-movie" class="screen hidden">
@@ -84,7 +96,22 @@
         <button class="place-card home-btn" data-home="У мене">У мене)</button>
         <button class="place-card home-btn" data-home="У тебе">У тебе ✨</button>
       </div>
+      <div class="custom-place" style="margin-top: 15px;">
+        <input type="text" id="home-comment" placeholder="Можеш натякнути... (необов'язково)">
+      </div>
       <button id="btn-next-home" class="btn primary disabled">Далі</button>
+    </section>
+
+    <!-- ЕКРАН 3D: Твій варіант -->
+    <section id="step-3-custom" class="screen hidden">
+      <div class="media-container">
+        <img src="/assets/choose.gif" alt="Custom">
+      </div>
+      <h1>Що б ти хотіла зробити? ✨</h1>
+      <div class="custom-place">
+        <input type="text" id="custom-input" placeholder="Напиши свій ідеальний варіант...">
+      </div>
+      <button id="btn-next-custom" class="btn primary disabled">Далі</button>
     </section>
 
     <!-- ЕКРАН 4: Вибір дати та часу -->
@@ -96,7 +123,7 @@
       <div class="date-picker-container">
         <label>Дата:</label>
         <input type="date" id="date-input">
-        
+
         <label>Час:</label>
         <input type="time" id="time-input">
       </div>
@@ -109,10 +136,14 @@
         <img src="/assets/happy.gif" alt="Happy">
       </div>
       <h1>Ура! Домовились ❤️</h1>
+      <!-- Сюди JS вставить дату та час -->
+      <h2 id="final-datetime" style="color: #ff758c; margin: 15px 0;"></h2>
+      <p>Я все записав. Чекаю з нетерпінням!</p>
     </section>
 
   </div>
 
   <script type="module" src="/src/js/index.js"></script>
 </body>
+
 </html>

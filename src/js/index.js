@@ -30,7 +30,7 @@ const initApp = () => {
         "Ти впевнена?",
         "Може все ж Так?",
         "Хтось любить бавитись)",
-        "Я буду стояти на своєму)", 
+        "Я буду стояти на своєму)",
         "Так, піду"
     ];
 
@@ -90,19 +90,57 @@ const initApp = () => {
     });
 
     // --- ЕКРАН 2: Вибір категорії ---
-    document.querySelectorAll('.category-btn').forEach(btn => {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+
+    const walkModal = document.getElementById('walk-modal');
+    const walkInput = document.getElementById('walk-input');
+    const btnContinueWalk = document.getElementById('btn-continue-walk');
+    const btnSkipWalk = document.getElementById('btn-skip-walk');
+
+    const continueWalkChoice = () => {
+        const walkPlace = walkInput.value.trim();
+        appState.category = 'walk';
+        appState.subChoice = walkPlace ? `Куди бажаєш: ${walkPlace}` : 'Просто гуляємо 🌳';
+        walkModal.classList.add('hidden');
+        walkModal.setAttribute('aria-hidden', 'true');
+        walkInput.value = '';
+        showScreen('step-4');
+    };
+
+    if (walkModal && walkInput && btnContinueWalk && btnSkipWalk) {
+        walkModal.addEventListener('click', (e) => {
+            if (e.target === walkModal) {
+                walkModal.classList.add('hidden');
+                walkModal.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        btnContinueWalk.addEventListener('click', continueWalkChoice);
+        btnSkipWalk.addEventListener('click', continueWalkChoice);
+    }
+
+    categoryBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-            const category = e.target.dataset.category;
+            // Знаходимо саму кнопку, навіть якщо клікнули на емодзі всередині
+            const targetBtn = e.target.closest('.category-btn');
+            if (!targetBtn) return;
+
+            const category = targetBtn.dataset.category;
             appState.category = category;
-            
+
+            // Перенаправляємо на відповідний екран залежно від вибору
             if (category === 'walk') {
-                showScreen('step-4');
+                walkModal.classList.remove('hidden');
+                walkModal.setAttribute('aria-hidden', 'false');
+                walkInput.focus();
             } else if (category === 'movie') {
                 showScreen('step-3-movie');
             } else if (category === 'food') {
                 showScreen('step-3-food');
             } else if (category === 'home') {
-                showScreen('step-3-home'); // Новий перехід
+                showScreen('step-3-home');
+            } else if (category === 'custom') {
+                showScreen('step-3-custom');
             }
         });
     });
@@ -134,7 +172,7 @@ const initApp = () => {
         btn.addEventListener('click', (e) => {
             foodBtns.forEach(b => b.classList.remove('selected'));
             e.target.classList.add('selected');
-            
+
             foodInput.value = '';
             appState.subChoice = e.target.dataset.food;
             btnNextFood.classList.remove('disabled');
@@ -144,7 +182,7 @@ const initApp = () => {
     // Якщо вона вводить свій варіант їжі
     foodInput.addEventListener('input', (e) => {
         foodBtns.forEach(b => b.classList.remove('selected'));
-        
+
         if (e.target.value.trim().length > 0) {
             appState.subChoice = e.target.value;
             btnNextFood.classList.remove('disabled');
@@ -156,38 +194,63 @@ const initApp = () => {
     btnNextFood.addEventListener('click', () => {
         showScreen('step-4');
     });
-// --- ЕКРАН 3C: Вдома ---
+    // --- ЕКРАН 3C: Вдома ---
     const homeBtns = document.querySelectorAll('.home-btn');
     const homeInput = document.getElementById('home-input');
     const btnNextHome = document.getElementById('btn-next-home');
 
+    // Вибір плиток (У мене / У тебе)
     homeBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             homeBtns.forEach(b => b.classList.remove('selected'));
             e.target.classList.add('selected');
-            
-            
+
             appState.subChoice = e.target.dataset.home;
             btnNextHome.classList.remove('disabled');
         });
     });
 
-    // Якщо вона вводить свій варіант їжі
-    foodInput.addEventListener('input', (e) => {
-        foodBtns.forEach(b => b.classList.remove('selected')); // скидаємо кнопки
+    // Якщо вона вводить свій варіант вдома (якщо є таке поле)
+    if (homeInput) {
+        homeInput.addEventListener('input', (e) => {
+            homeBtns.forEach(b => b.classList.remove('selected')); // скидаємо кнопки
 
-        if (e.target.value.trim().length > 0) {
-            appState.subChoice = e.target.value;
-            btnNextFood.classList.remove('disabled');
-        } else {
-            btnNextFood.classList.add('disabled');
+            if (e.target.value.trim().length > 0) {
+                appState.subChoice = e.target.value;
+                btnNextHome.classList.remove('disabled');
+            } else {
+                btnNextHome.classList.add('disabled');
+            }
+        });
+    }
+
+    // ТЕ САМЕ ПРОПУЩЕНЕ МІСЦЕ: Перехід на наступний екран
+    btnNextHome.addEventListener('click', () => {
+        const comment = document.getElementById('home-comment').value.trim();
+        if (comment) {
+            appState.subChoice += ` (Коментар: ${comment})`;
         }
-    });
-
-    btnNextFood.addEventListener('click', () => {
         showScreen('step-4');
     });
-    
+
+    // --- ЕКРАН 3D: Твій варіант ---
+    const customInput = document.getElementById('custom-input');
+    const btnNextCustom = document.getElementById('btn-next-custom');
+
+    if (customInput && btnNextCustom) {
+        customInput.addEventListener('input', (e) => {
+            if (e.target.value.trim().length > 0) {
+                appState.subChoice = e.target.value;
+                btnNextCustom.classList.remove('disabled');
+            } else {
+                btnNextCustom.classList.add('disabled');
+            }
+        });
+
+        btnNextCustom.addEventListener('click', () => {
+            showScreen('step-4');
+        });
+    }
 
     // --- ЕКРАН 4: Дата та час ---
     const dateInput = document.getElementById('date-input');
@@ -199,12 +262,12 @@ const initApp = () => {
             // Збираємо обрану дату та час в один об'єкт Date
             const now = new Date();
             const selectedDate = new Date(`${dateInput.value}T${timeInput.value}`);
-            
+
             // Якщо обраний час вже в минулому — блокуємо кнопку
             if (selectedDate > now) {
                 btnFinish.classList.remove('disabled');
             } else {
-                btnFinish.classList.add('disabled'); 
+                btnFinish.classList.add('disabled');
             }
         } else {
             btnFinish.classList.add('disabled');
@@ -235,9 +298,19 @@ const initApp = () => {
     btnFinish.addEventListener('click', () => {
         appState.date = dateInput.value;
         appState.time = timeInput.value;
-        
-        sendToTelegram(appState); 
-        
+
+        // Форматуємо дату (з 2026-10-07 робимо 07.10.2026)
+        const formattedDate = appState.date.split('-').reverse().join('.');
+
+        // Виводимо текст на фінальний екран
+        const finalDatetimeEl = document.getElementById('final-datetime');
+        if (finalDatetimeEl) {
+            finalDatetimeEl.innerText = `Зустрічаємось ${formattedDate} о ${appState.time} 🕒`;
+        }
+
+        // Відправляємо дані в ТГ
+        sendToTelegram(appState);
+
         showScreen('step-5');
     });
 };
