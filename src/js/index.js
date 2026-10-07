@@ -274,6 +274,18 @@ const initApp = () => {
         }
     };
 
+    const backBtns = document.querySelectorAll('.back-btn');
+
+    backBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+
+            const targetScreenId = e.currentTarget.getAttribute('data-target');
+            appState.category = '';
+            appState.subChoice = '';
+            showScreen(targetScreenId);
+        });
+    });
+
     // Обмежуємо вибір часу в UI, якщо обрано сьогоднішній день
     dateInput.addEventListener('change', () => {
         const today = new Date();
